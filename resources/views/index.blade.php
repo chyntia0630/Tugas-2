@@ -62,7 +62,10 @@
 
     <header>
         <h2>Toko Alat Tulis</h2>
-        <span>Keranjang (0)</span>
+        <a href="{{ route('keranjang.index') }}"
+        style="color: white; text-decoration: none;">
+        Keranjang ({{ array_sum(session('cart', [])) }})
+        </a>
     </header>
 
     <h2>Daftar Barang</h2>
@@ -77,10 +80,13 @@
                 </p>
 
                 <p>Stok: {{ $barang->stok }}</p>
-
-                <button disabled>
-                    Masukkan ke Keranjang
-                </button>
+                
+                <form action="{{ route('keranjang.tambah', $barang->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" {{ $barang->stok <= 0 ? 'disabled' : '' }}>
+                        Masukkan ke Keranjang
+                    </button>
+                </form>
             </div>
         @endforeach
     </div>

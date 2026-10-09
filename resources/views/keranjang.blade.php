@@ -120,6 +120,12 @@
             display: inline;
         }
 
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         @media (max-width: 500px) {
             body {
                 padding: 16px;
@@ -137,7 +143,7 @@
     <header>
         <h1>Keranjang Belanja</h1>
         <p>Belanja alat tulis dengan mudah</p>
-        <a href="/" class="button secondary">← Kembali ke Toko</a>
+        <a href="/" class="button secondary"> Kembali ke Toko</a>
     </header>
 
     @if (session('success'))
@@ -176,11 +182,15 @@
 
                         <form action="{{ route('keranjang.tambahJumlah', $item['barang']->id) }}" method="POST">
                             @csrf
-                            <button
-                                type="submit"
-                                class="primary"
-                                {{ $item['jumlah'] >= $item['barang']->stok ? 'disabled' : '' }}
-                            >+</button>
+                            <button 
+                            type="submit"
+                            class="primary"
+                            {{ $item['jumlah'] >= $item['barang']->stok ? 'disabled' : '' }}
+                            >
+                            
+                            +
+                        
+                        </button>
                         </form>
 
                         <form action="{{ route('keranjang.hapus', $item['barang']->id) }}" method="POST">
